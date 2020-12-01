@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "esModuleInterop": true,
+    "declaration": false,
+    "baseUrl": ".",
+    "sourceMap": true,
+    "lib": ["DOM", "ES2020"],
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "outDir": "../server-dist",
+    "paths": {
+      "@middleware": ["middleware/index"],
+      "@utils": ["utils/index"],
+      "@types": ["../@types/index"],
+    },
+    "typeRoots": [
+      "../@types/index",
+    ]
+  },
+  "include": [
+    "shims.d.ts",
+    "index.ts",
+    "../@types/index",
+  ],
+  "exclude": [
+    "node_modules/**/*",
+    ".webpack/**/*",
+    ".vscode/**/*",
+    "**/*.js"
+  ],
+}

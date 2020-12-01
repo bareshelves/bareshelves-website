@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "declaration": false,
+    "baseUrl": ".",
+    "sourceMap": true,
+    "lib": ["DOM", "ES2020"],
+    "allowSyntheticDefaultImports": true,
+    "strictFunctionTypes": false,
+    "paths": {
+      "@types": ["../@types/index"],
+      "@/*": ["*"],
+    },
+    "typeRoots": [
+      "../@types/index",
+    ],
+  },
+  "exclude": [
+    "../.webpack/**/*",
+    "../.vscode/**/*",
+    "**/*.js"
+  ],
+  "include": [
+    "index.ts",
+    "shims.d.ts", 
+    "../@types/index", 
+    "**/*.vue",
+  ],
+}
