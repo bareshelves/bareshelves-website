@@ -15,15 +15,16 @@
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: var(--text);
+  color: var(--highlight);
 }
 
 button {
-  background-color: var(--accent);
-  color: var(--highlight);
+  background-color: var(--highlight);
+  color: var(--highlight-text);
   border: none;
-  padding: 0.6em 1.5em;
+  padding: 0.6em;
   cursor: pointer;
+  border-radius: 5px;
 
   &:hover {
     background-color: var(--highlight);

@@ -1,3 +1,11 @@
+export interface Meta {
+  title: string
+  description: string
+  thumbnail: string
+  themeColor: string
+  url: string
+}
+
 export interface Config {
   port: number
 
@@ -10,12 +18,6 @@ export interface Config {
     connection: string
     database: string
   }
-}
 
-export interface Meta {
-  title: string
-  description: string
-  thumbnail: string
-  themeColor: string
-  url: string
+  meta?: Meta
 }

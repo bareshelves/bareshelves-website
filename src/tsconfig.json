@@ -10,12 +10,8 @@
     "allowSyntheticDefaultImports": true,
     "strictFunctionTypes": false,
     "paths": {
-      "@types": [
-        "../@types/index", 
-        "node",
-      ],
+      "@types": ["../@types/index"],
       "@/*": ["*"],
-      "@utils": ["utils"],
     },
     "typeRoots": [
       "../@types/index",
@@ -24,10 +20,10 @@
   "exclude": [
     "../.webpack/**/*",
     "../.vscode/**/*",
-    // "**/*.js"
+    "**/*.js"
   ],
   "include": [
-    "server/index.ts",
+    "index.ts",
     "shims.d.ts", 
     "../@types/index", 
     "**/*.vue",

@@ -1,5 +1,5 @@
-console.log('Loading db util...')
-export * from './db'
+// console.log('Loading db util...')
+// export * from './db'
 console.log('Loading id util...')
 export * from './id'
 console.log('Loading timestamp util...')

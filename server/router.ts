@@ -5,7 +5,9 @@ import compression from 'koa-compress'
 import Router from 'koa-router'
 import bodyParser from 'koa-bodyparser'
 import api from './api'
-import config from '../config.js'
+import {
+  port, 
+} from '../config'
 import WebsocketServer from './websockets'
 import http from 'http'
 import {
@@ -35,11 +37,6 @@ app.use(bodyParser())
 
 app.on('error', console.error)
 
-// TODO: write more elegantly
-router.get('/verify/:id/:token', ctx => {
-  ctx.redirect(`http://localhost:4000/verify/${ctx.params.id}/${ctx.params.token}`)
-})
-
 router.use('/api', api)
 
 app.use(router.routes())
@@ -48,8 +45,8 @@ if (process.env.NODE_ENV === 'production') {
   app.use(ctx => {
     if (ctx.status !== 404) return
 
-    const file = path.join(process.cwd(), '../dist', ctx.path)
-    const index = path.join(process.cwd(), '../dist/index.html')
+    const file = path.join(process.cwd(), 'dist', ctx.path)
+    const index = path.join(process.cwd(), 'dist/index.html')
 
     if (fs.existsSync(index)) {
       const result = ctx.path === '/' || !fs.existsSync(file) ? index : file
@@ -62,10 +59,6 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
-// app.use(ssrMiddleware)
+httpServer.listen(port)
 
-httpServer.listen(process.env.PORT || config.port)
-
-console.log(`${httpLogTag} HTTP server running on port ${config.port}.`)
-
-// if (process.send) process.send('ready')
+console.log(`${httpLogTag} HTTP server running on port ${port}.`)

@@ -6,8 +6,8 @@
     "dev": "multiscript npm run watch:client + npm run watch:server",
     "watch:server": "cd server && ts-node-dev .",
     "build:server": "cd server && tsc",
-    "start:server": "cp config.js server-dist/config.js && cp meta.js server-dist/meta.js && node server-dist/server",
-    "watch:client": "vite",
+    "start:server": "cp config.js server-dist/config.js && cp meta.js server-dist/meta.js && cross-env NODE_ENV=production node server-dist/server",
+    "watch:client": "vite serve",
     "build:client": "vite build",
     "lint": "eslint --fix --ext .js,.vue,.ts ./"
   },
@@ -27,7 +27,7 @@
     "@types/ws": "^7.4.0",
     "@typescript-eslint/eslint-plugin": "^4.8.2",
     "@typescript-eslint/parser": "^4.8.2",
-    "@vue/compiler-sfc": "^3.0.2",
+    "@vue/compiler-sfc": "^3.0.3",
     "axios": "^0.21.0",
     "babel-eslint": "^10.1.0",
     "chalk": "^4.1.0",
@@ -48,7 +48,7 @@
     "ts-node-dev": "^1.0.0",
     "typescript": "^4.1.2",
     "vite": "^1.0.0-rc.8",
-    "vite-plugin-pwa": "^0.1.5",
+    "vite-plugin-svg": "^0.7.0",
     "ws": "^7.4.0"
   }
 }
