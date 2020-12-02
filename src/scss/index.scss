@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@700&display=swap');
 @import './theme.scss';
 
 * {
@@ -6,25 +6,64 @@
   padding: 0;
   box-sizing: border-box;
   font-family: Manrope;
+  letter-spacing: -0.017em;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--highlight) var(--background);
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--highlight);
+    // border-right: 1px solid var(--background);
+  }
+
+  ::-webkit-scrollbar {
+    background-color: transparent;
+    width: 7px;
+  }
 }
 
 :root {
   background-color: var(--background);
   color: var(--text);
-  font-size: 12px;
+  font-size: 0.8rem;
+
+  @media (min-width: 1600px) {
+    font-size: 0.9rem;
+  }
+
+  @media (min-width: 1900px) {
+    font-size: 1rem;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
   color: var(--highlight);
+  max-width: 60em;
 }
 
-button {
-  background-color: var(--highlight);
-  color: var(--highlight-text);
+p {
+  font-size: 1.2em;
+  max-width: 60em;
+}
+
+button, .button {
   border: none;
-  padding: 0.6em;
+  padding: 0.5rem;
   cursor: pointer;
   border-radius: 5px;
+  text-transform: lowercase;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: 1.2em;
+  border: 2px solid var(--highlight);
+  background-color: transparent;
+  color: var(--highlight);
+
+  svg {
+    margin-right: 0.2rem;
+    width: 2rem;
+  }
 
   &:hover {
     background-color: var(--highlight);

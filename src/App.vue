@@ -2,15 +2,14 @@
 #app
   Navigation
   main
-    h1 Hello
-    p World
-    button h
+    router-view
 </template>
 
 <style lang="scss" scoped>
 #app {
   max-width: 1600px;
   padding: 30px;
+  margin: 0 auto;
 }
 </style>
 

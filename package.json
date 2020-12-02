@@ -12,6 +12,7 @@
     "lint": "eslint --fix --ext .js,.vue,.ts ./"
   },
   "dependencies": {
+    "marked": "^1.2.5",
     "vue": "^3.0.2",
     "vue-router": "^4.0.0-rc.5",
     "vuex": "^4.0.0-rc.2"

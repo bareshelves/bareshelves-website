@@ -1,10 +1,62 @@
 <template lang="pug">
 nav
-  .logo
-  h2 bareshelves
-  SearchIcon
-  BellIcon
+  router-link(to="/")
+    .logo
+    h2 bareshelves
+  
+  router-link(to="/search")
+    SearchIcon
+  
+  router-link(to="/notifications")
+    BellIcon
 </template>
+
+<style lang="scss" scoped>
+nav {
+  display: flex;
+  align-items: center;
+
+  *:not(:last-child) {
+    margin-right: 0.75rem;
+  }
+
+  *:first-child {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+    text-decoration: none;
+
+    .logo {
+      width: 25px;
+      height: 25px;
+      background-color: black;
+      margin-right: 0.75rem;
+    }
+
+    h2 {
+      font-size: 2em;
+    }
+  }
+
+  @media (max-width: 400px) {
+    h2 {
+      display: none;
+    }
+  }
+
+  a {
+    color: var(--highlight);
+
+    // &:hover {
+    //   color: var(--text)
+    // }
+
+    svg {
+      width: 2rem;
+    }
+  }
+}
+</style>
 
 <script lang="ts">
 import {

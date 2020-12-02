@@ -11,7 +11,7 @@
     "strictFunctionTypes": false,
     "paths": {
       "@types": ["../@types/index"],
-      "@/*": ["*"],
+      "/@/*": ["*"],
     },
     "typeRoots": [
       "../@types/index",

@@ -7,29 +7,38 @@ import {
 import {
   meta,
 } from '../../meta'
-
+import Home from '/@/views/Home.vue'
 import {
   h, 
 } from 'vue'
 
 export const routes: RouteRecordRaw[] = [
-  // {
-  //   path: '/',
-  //   name: 'Home',
-  //   component: Home as unknown as typeof h,
-  //   meta: {
-  //     title: 'Home',
-  //   },
-  // },
+  {
+    path: '/',
+    name: 'Home',
+    component: Home as unknown as typeof h,
+    meta: {
+      title: 'Home',
+    },
+  },
 
-  // {
-  //   path: '/coinflip',
-  //   name: 'Coinflip Lobby',
-  //   component: (): Promise<typeof import('*.vue')> => import(/* webpackChunkName: "coinflip-lobby" */ '@/views/games/coinflip/Lobby.vue'),
-  //   meta: {
-  //     title: 'Coinflip',
-  //   },
-  // },
+  {
+    path: '/notifications',
+    name: 'Notifications',
+    component: (): Promise<typeof import('*.vue')> => import(/* webpackChunkName: "notifications" */ '/@/views/Home.vue'),
+    meta: {
+      title: 'Notifications',
+    },
+  },
+
+  {
+    path: '/search',
+    name: 'Search',
+    component: (): Promise<typeof import('*.vue')> => import(/* webpackChunkName: "search" */ '/@/views/Home.vue'),
+    meta: {
+      title: 'Search',
+    },
+  },
 ]
 
 const isSSR = typeof window === 'undefined'
