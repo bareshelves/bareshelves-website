@@ -12,26 +12,38 @@ export const subscribe: WebsocketEvent = {
   regex: /^subscribe$/,
   
   callback ({ peer, message }): void {
-    if (typeof message !== 'string') return
+    let name = message as string
+    let payload: unknown | undefined
+    
+    if (typeof message !== 'string') {
+      name = message['type']
+      payload = message['payload']
+    }
 
     const subscription: WebsocketSubscription = subscriptions.find(
       ({ regex }) => {
-        return regex.test(message as string)
+        return regex.test(name)
       },
     )
 
     if (subscription) {
-      subscription.peers.push(peer)
+      subscription.subscriptions.push({
+        peer,
+        payload,
+      })
 
-      subscription.onSubscribe?.(peer)
+      subscription.onSubscribe?.(peer, payload)
 
       console.log(wsLogTag, `Subscribed peer to ${message}.`)
 
       peer.onClose(() => {
-        const index = subscription.peers.indexOf(peer)
+        const index = subscription.subscriptions.indexOf({
+          peer,
+          payload,
+        })
 
         if (index > -1) {
-          subscription.peers.splice(index, 1)
+          subscription.subscriptions.splice(index, 1)
 
           subscription.onUnsubscribe?.(peer)
 

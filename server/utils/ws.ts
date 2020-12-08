@@ -33,9 +33,13 @@ export interface WebsocketEvent {
 }
 
 export type WebsocketSubscription = {
-  peers: WebsocketPeer[]
+  subscriptions: {
+    peer: WebsocketPeer
+    payload:
+  }[]
+
   regex: RegExp
-  onSubscribe? (peer: WebsocketPeer): Promise<void> | void 
+  onSubscribe? (peer: WebsocketPeer, payload?: unknown): Promise<void> | void 
   onUnsubscribe? (peer: WebsocketPeer): Promise<void> | void 
 }
 
