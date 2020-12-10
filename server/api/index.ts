@@ -5,7 +5,8 @@ import {
 } from '../utils'
 import {
   KoaState,
-} from '../../@types'
+} from '@types'
+import Products from './products'
 
 const router = new Router<KoaState>()
 
@@ -20,5 +21,7 @@ router.use(async (ctx, next) => {
     body: body && (JSON.stringify(body).length < 500 ? body : '...'),
   })
 })
+
+router.use('/products', Products)
 
 export default router.routes()

@@ -4,3 +4,4 @@ dist
 *.local
 server-dist
 .env
+.google-cloud.json

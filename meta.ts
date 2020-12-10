@@ -1,5 +1,5 @@
 export const meta = {
-  title: 'Remote Mouse',
+  title: 'BareShelves',
   description: 'Lorem ipsum dolor sit amet.',
   thumbnail: 'example.webp',
   themeColor: '',

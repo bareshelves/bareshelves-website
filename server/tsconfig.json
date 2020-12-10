@@ -10,8 +10,8 @@
     "allowSyntheticDefaultImports": true,
     "outDir": "../server-dist",
     "paths": {
-      "@middleware": ["middleware/index"],
-      "@utils": ["utils/index"],
+      "@middleware": ["./middleware/index"],
+      "@utils": ["./utils/index"],
       "@types": ["../@types/index"],
     },
     "typeRoots": [
@@ -19,14 +19,13 @@
     ]
   },
   "include": [
-    "shims.d.ts",
-    "index.ts",
-    "../@types/index",
+    "./index.ts",
+    "../@types/index.ts",
   ],
   "exclude": [
-    "node_modules/**/*",
-    ".webpack/**/*",
-    ".vscode/**/*",
+    "../node_modules/**/*",
+    "../.webpack/**/*",
+    "../.vscode/**/*",
     "**/*.js"
   ],
 }

@@ -35,7 +35,7 @@ export interface WebsocketEvent {
 export type WebsocketSubscription = {
   subscriptions: {
     peer: WebsocketPeer
-    payload:
+    payload: WebsocketMessage
   }[]
 
   regex: RegExp

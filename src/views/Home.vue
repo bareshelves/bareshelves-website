@@ -20,7 +20,7 @@ section.faq( v-if="FAQ[0]" )
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 15rem 0;
+  padding: 18rem 0;
 
   h1 {
     text-align: center;

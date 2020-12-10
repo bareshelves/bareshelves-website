@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "start": "npm run build:client && npm run build:server && npm run start:server",
-    "dev": "multiscript npm run watch:client + npm run watch:server",
-    "watch:server": "cd server && ts-node-dev .",
+    "dev": "multiscript npm run watch:client + npm run watch:server + npm run dev:server",
+    "watch:server": "cd server && tsc -w --preserveWatchOutput --project tsconfig.json",
+    "dev:server": "cd server && tsc && cd ../server-dist && nodemon server -q",
     "build:server": "cd server && tsc",
     "start:server": "cp config.js server-dist/config.js && cp meta.js server-dist/meta.js && cross-env NODE_ENV=production node server-dist/server",
     "watch:client": "vite serve",
