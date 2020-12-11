@@ -1,8 +1,9 @@
 :root {
   --background: white;
+  --alt-background: #F5F5F5;
   --accent: black;
-  --highlight: black;
-  --text: #575757;
+  --highlight: var(--accent);
+  --text: #545454;
   --highlight-text: white;
   --red: #FF121E;
 }

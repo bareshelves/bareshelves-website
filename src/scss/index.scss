@@ -39,11 +39,14 @@ p {
   max-width: 60em;
 }
 
+button, .button, .rounded, .badge {
+  border-radius: 5px;
+}
+
 button, .button {
   border: none;
   padding: 0.5rem;
   cursor: pointer;
-  border-radius: 5px;
   text-transform: lowercase;
   display: flex;
   align-items: center;
@@ -61,5 +64,17 @@ button, .button {
   &:hover {
     background-color: var(--highlight);
     color: var(--highlight-text);
+  }
+}
+
+.badge {
+  background-color: var(--highlight);
+  color: var(--highlight-text);
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  padding: 2px 5px;
+
+  &.red {
+    background-color: var(--red);
   }
 }

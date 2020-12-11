@@ -6,4 +6,12 @@ process.on('message', (message) => {
 process.on('unhandledRejection', console.error)
 process.on('uncaughtException', console.error)
 
-import './router'
+// import './router'
+import('./utils/db').then(async ({ connectDb }) => {
+  try {
+    await connectDb()
+    await import('./router')
+  } catch (error){
+    console.error(error)
+  }
+})

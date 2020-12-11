@@ -14,12 +14,19 @@ import {
   KoaState,
 } from '../@types'
 import {
+  getTimestamp,
   httpLogTag,
 } from './utils'
 
 const app = new koa<KoaState>()
 const router = new Router<KoaState>()
 const httpServer = http.createServer(app.callback())
+
+app.use(async (ctx, next) => {
+  await next()
+
+  console.log(httpLogTag, getTimestamp(), ctx.method.toUpperCase(), ctx.path, `(${ctx.response.status})`)
+})
 
 httpServer.on('upgrade', async (request, socket, head) => {
   WebsocketServer.server.handleUpgrade(request, socket, head, ws => {

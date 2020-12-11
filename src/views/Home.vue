@@ -11,7 +11,7 @@ section.landing
       | Manage notifications
 
 section.faq( v-if="FAQ[0]" )
-  h1 F.A.Q.
+  //- h1 F.A.Q.
   FAQItem(v-for="(question, key) in FAQ" :key="key" :question="question")
 </template>
 

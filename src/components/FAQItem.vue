@@ -14,7 +14,7 @@
   cursor: pointer;
 
   &:not(:last-child) {
-    border-bottom: 2px solid var(--text);
+    // border-bottom: 2px solid var(--text);
   }
 
   .header {
