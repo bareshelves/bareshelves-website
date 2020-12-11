@@ -4,7 +4,7 @@ nav
     .logo
     h2 bareshelves
   
-  router-link(to="/search")
+  router-link(to="/browse")
     SearchIcon
   
   router-link(to="/notifications")

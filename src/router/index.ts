@@ -32,11 +32,11 @@ export const routes: RouteRecordRaw[] = [
   },
 
   {
-    path: '/search',
-    name: 'Search',
-    component: (): Promise<typeof import('*.vue')> => import(/* webpackChunkName: "search" */ '/@/views/Search.vue'),
+    path: '/browse',
+    name: 'Browse',
+    component: (): Promise<typeof import('*.vue')> => import(/* webpackChunkName: "browse" */ '/@/views/Browse.vue'),
     meta: {
-      title: 'Search',
+      title: 'Browse',
     },
   },
 ]

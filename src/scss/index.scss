@@ -78,3 +78,11 @@ button, .button {
     background-color: var(--red);
   }
 }
+
+a {
+  color: var(--link);
+
+  &:hover {
+    color: var(--text);
+  }
+}

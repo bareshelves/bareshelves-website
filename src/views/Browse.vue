@@ -3,8 +3,16 @@
   SearchIcon
   input( ref="input" v-model="query" placeholder="enter search query.." )
 
-ul
-  SmallProduct( v-for="product in products" :key="product._id" :product="product" )
+template( v-if="query" )
+  ProductGrid( v-show="searchResult.length > 0" :list="searchResult" )
+
+  h2.no-results( v-show="searchResult.length === 0" ) No results.
+
+template( v-else="" )
+  h1 Popular
+   a( href="#" ) see more
+  ProductGrid.popular( :list="popular" :rows="2" )
+  
 </template>
 
 <style lang="scss" scoped>
@@ -15,9 +23,10 @@ ul
   display: flex;
   align-items: center;
   padding: 7.5px;
-  margin-top: 5rem;
+  margin-top: 8rem;
   color: var(--text);
   cursor: text;
+  margin-bottom: 4rem;
 
   svg {
     width: 2rem;
@@ -35,14 +44,22 @@ ul
   }
 }
 
-ul {
-  margin-top: 4rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
-  gap: 5rem;
+h2.no-results {
+  width: 100%;
+  max-width: 100%;
+  text-align: center;
+}
 
-  li {
-    list-style: none;
+h1 {
+  margin-bottom: 4rem;
+  font-size: 1.8rem;
+  display: flex;
+  max-width: 100%;
+  align-items: center;
+
+  a {
+    font-size: 1rem;
+    margin-left: auto;
   }
 }
 </style>
@@ -59,36 +76,43 @@ import {
 import {
   api,
 } from '../utils'
-import SmallProduct from '../components/SmallProduct.vue'
 import SearchIcon from '../assets/svg/search.svg' 
+import ProductGrid from '../components/ProductGrid.vue'
+
+// TODO: push routes
 
 const Search = defineComponent({
   components: {
-    SmallProduct,
     SearchIcon,
+    ProductGrid,
   },
 
   setup () {
-    const query = ref<string>('a')
-    const products = ref<Product[]>([])
+    const query = ref<string>('')
+    const searchResult = ref<Product[]>([])
     const page = ref(0)
     const limit = ref(50)
+    const popular = ref<Product[]>([])
 
     const submit = async () => {
       if (!/\S/.test(query.value)) return
 
       const { data } = await api.get<Product[]>(`/products/search/0?limit=${limit.value}&query=${query.value}`)
 
-      products.value = data
+      searchResult.value = data
     }
 
     submit()
 
     watch(query, submit)
 
+    api.get<Product[]>(`/products/all/0?limit=${limit.value}`)
+      .then(({ data }) => popular.value = data)
+
     return {
       query,
-      products,
+      searchResult,
+      popular,
       page,
       limit,
       submit,

@@ -8,6 +8,7 @@ import {
 } from '../../utils/db'
 import {
   LimitMiddleware,
+  FilterMiddleware,
 } from '../../middleware'
 
 const router = new Router<KoaState>()

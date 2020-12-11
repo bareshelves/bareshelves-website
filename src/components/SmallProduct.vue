@@ -10,6 +10,8 @@ li.product
 
       template( v-else )
         .badge.red {{ 'Out Of Stock' }}
+
+    AmazonIcon
 </template>
 
 <style lang="scss" scoped>
@@ -20,7 +22,7 @@ li.product
 
   h4 {
     display: -webkit-box;
-    font-size: 1.2em;
+    font-size: 1.15em;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;  
     overflow: hidden;
@@ -29,7 +31,7 @@ li.product
   .price {
     display: flex;
     align-items: center;
-    margin-top: 3px;
+    margin-top: 5px;
     
     p {
       font-size: 1.1rem;
@@ -43,6 +45,11 @@ li.product
     object-fit: contain;
     margin-right: 2rem;
   }
+
+  svg {
+    height: 20px;
+    margin-top: 10px;
+  }
 }
 </style>
 
@@ -53,8 +60,13 @@ import {
 import {
   Product,
 } from '@types'
+import AmazonIcon from '../assets/svg/amazon.svg'
 
 const SmallProduct = defineComponent({
+  components: {
+    AmazonIcon,
+  },
+
   props: {
     product: {
       type: Object,
@@ -72,12 +84,12 @@ const SmallProduct = defineComponent({
       instock,
     } = props.product
 
-    console.log(props.product)
+    const [dollars, cents] = price ? String(price).split('.') : ['0', '0']
 
     return {
       productimg,
       productname,
-      price,
+      price: price ? `${dollars}.${(cents || '00').padEnd(2, '0')}` : null,
       instock,
     }
   },

@@ -2,7 +2,7 @@
 section.landing
   h1 Get notified when your favorite products are back in stock. 
   .links 
-    router-link.button(to="/search")
+    router-link.button(to="/browse")
       SearchIcon
       | Search for products
 
