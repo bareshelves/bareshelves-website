@@ -1,15 +1,23 @@
 <template lang="pug">
-.search.rounded.rounded( @click="() => $refs.input.focus()" )
+.search.rounded( @click="() => $refs.input.focus()" )
   SearchIcon
   input( ref="input" v-model="query" placeholder="enter search query.." )
 
 template( v-if="query" )
-  ProductGrid( v-show="searchResult.length > 0" :list="searchResult" )
+  ProductGrid.search-result( v-show="searchResult.length > 0" :list="searchResult" )
 
   h2.no-results( v-show="searchResult.length === 0" ) No results.
 
-template( v-else="" )
+template( v-else )
+  h1 Back in stock
+   a( href="#" ) see more
+  ProductGrid.popular( :list="popular" :rows="2" )
+
   h1 Popular
+   a( href="#" ) see more
+  ProductGrid.popular( :list="popular" :rows="2" )
+
+  h1 Out of stock
    a( href="#" ) see more
   ProductGrid.popular( :list="popular" :rows="2" )
   
@@ -26,7 +34,6 @@ template( v-else="" )
   margin-top: 8rem;
   color: var(--text);
   cursor: text;
-  margin-bottom: 4rem;
 
   svg {
     width: 2rem;
@@ -50,7 +57,12 @@ h2.no-results {
   text-align: center;
 }
 
+.search-result, h2 {
+  margin-top: 4rem;
+}
+
 h1 {
+  margin-top: 6rem;
   margin-bottom: 4rem;
   font-size: 1.8rem;
   display: flex;
@@ -91,7 +103,7 @@ const Search = defineComponent({
     const query = ref<string>('')
     const searchResult = ref<Product[]>([])
     const page = ref(0)
-    const limit = ref(50)
+    const limit = ref(100)
     const popular = ref<Product[]>([])
 
     const submit = async () => {

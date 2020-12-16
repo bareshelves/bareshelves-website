@@ -20,15 +20,13 @@ Products.createIndex({
   desc: "text",
 }).catch(console.error)
 
-router.get('/all/:page', LimitMiddleware(100), async ctx => {
+router.get('/all/:page', FilterMiddleware, LimitMiddleware(100), async ctx => {
   const page = Number(ctx.params.page)
   const limit = ctx.state.limit || 100
 
   if (isNaN(page)) return ctx.throw(400, 'Invalid page number.')
 
-  const productsCursor = await Products.find({}, {
-    limit,
-  })
+  const productsCursor = await Products.find(ctx.state.filter, { limit }).sort(ctx.state.sort)
 
   productsCursor.skip(limit * page)
 
@@ -37,7 +35,7 @@ router.get('/all/:page', LimitMiddleware(100), async ctx => {
   ctx.body = products
 })
 
-router.get('/search/:page', LimitMiddleware(100), async ctx => {
+router.get('/search/:page', FilterMiddleware, LimitMiddleware(100), async ctx => {
   const page = Number(ctx.params.page)
   const limit = ctx.state.limit || 100
 
@@ -56,9 +54,9 @@ router.get('/search/:page', LimitMiddleware(100), async ctx => {
         desc: query,
       },
     ],
-  }, {
-    limit,
-  })
+
+    ...ctx.state.filter,
+  }, { limit }).sort(ctx.state.sort)
 
   productsCursor.skip(limit * page)
 

@@ -18,7 +18,9 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'semi': ['error', 'never'],
-    "indent": ["error", 2],
+    "indent": ["error", 2, {
+      SwitchCase: 1,
+    }],
     'array-bracket-newline': ['off', 'consistent'],
     'array-element-newline': ['off', {
       multiline: true,
@@ -27,10 +29,6 @@ module.exports = {
     'array-bracket-spacing': ['error', 'never'],
     'block-spacing': ['error', 'always'],
     'brace-style': ['error', '1tbs', { allowSingleLine: true }],
-    camelcase: ['error', {
-      properties: 'always',
-      ignoreDestructuring: true, 
-    }],
     'eol-last': ['error', 'always'],
     'function-call-argument-newline': ['off', 'consistent'],
     'func-call-spacing': ['error', 'never'],

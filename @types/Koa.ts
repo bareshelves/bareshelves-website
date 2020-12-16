@@ -3,4 +3,5 @@ export interface KoaState {
   // userId?: string
   limit?: number
   filter?: Record<string, unknown>
+  sort?: Record<string, unknown>
 }

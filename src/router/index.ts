@@ -39,6 +39,24 @@ export const routes: RouteRecordRaw[] = [
       title: 'Browse',
     },
   },
+
+  {
+    path: '/browse/:category',
+    name: 'BrowseCategory',
+    component: (): Promise<typeof import('*.vue')> => import(/* webpackChunkName: "browse-category" */ '/@/views/BrowseCategory.vue'),
+    meta: {
+      title: 'Browse',
+    },
+  },
+
+  {
+    path: '/:pathMatch(.*)*',
+    name: '404',
+    component: (): Promise<typeof import('*.vue')> => import(/* webpackChunkName: "404" */ '/@/views/404.vue'),
+    meta: {
+      title: '404',
+    },
+  },
 ]
 
 const isSSR = typeof window === 'undefined'

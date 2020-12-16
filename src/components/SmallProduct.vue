@@ -3,10 +3,11 @@ li.product
   img( :src="productimg" )
   .details
     h4 {{ productname }}
+
     .price
       template( v-if="instock === 'true'" )
-        p ${{ price }}
         .badge {{ instock === 'delayed' ? 'Delayed' : 'In Stock' }}
+        p ${{ price }}
 
       template( v-else )
         .badge.red {{ 'Out Of Stock' }}
@@ -20,6 +21,12 @@ li.product
   height: 10rem;
   width: 100%;
 
+  .details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   h4 {
     display: -webkit-box;
     font-size: 1.15em;
@@ -31,11 +38,12 @@ li.product
   .price {
     display: flex;
     align-items: center;
-    margin-top: 5px;
+    // margin-top: auto;
+    padding-top: 5px;
     
     p {
       font-size: 1.1rem;
-      margin-right: 7px;
+      margin-left: 7px;
     }
   }
   
