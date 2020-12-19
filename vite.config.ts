@@ -10,8 +10,6 @@ import proxy from 'koa-proxy'
 dotenv.config()
 
 const config: UserConfig = {
-  entry: 'index.pug',
-
   plugins: [
     svgPlugin,
 

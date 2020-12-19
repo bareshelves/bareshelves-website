@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import {
   compileTemplate, 
 } from '@vue/compiler-sfc'
@@ -10,10 +11,9 @@ import {
 import {
   TransformContext, 
 } from 'vite/dist/node/transform'
-import path from 'path'
 import hashSum from 'hash-sum'
 
-const cache = new Map()
+const cache = new Map<string, string>()
 
 const svgPlugin: Plugin = {
   transforms: [
@@ -22,7 +22,7 @@ const svgPlugin: Plugin = {
         path,
         query,
         isBuild,
-      }: TransformContext): boolean {
+      }): boolean {
         const isSVG = path.endsWith('.svg')
 
         return isBuild
@@ -30,18 +30,18 @@ const svgPlugin: Plugin = {
           : isSVG && query.import != null
       },
 
-      async transform ({
-        path: filePath, 
+      transform ({
+        path, 
         isBuild,
-      }: TransformContext): Promise<string> {
+      }: TransformContext): string {
         const result = cache.get(path)
 
         if (result) return result
 
         const { code } = compileTemplate({
-          source: readFileSync(filePath, 'utf8'),
-          id: hashSum(filePath),
-          filename: filePath,
+          source: readFileSync(path, 'utf8'),
+          id: hashSum(path),
+          filename: path,
         })
 
         if (isBuild) {

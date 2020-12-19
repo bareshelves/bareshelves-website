@@ -4,6 +4,7 @@
   "scripts": {
     "start": "npm run build:client && npm run build:server && npm run start:server",
     "dev": "multiscript npm run watch:client + npm run watch:server + npm run dev:server",
+    "build": "npm run build:server && npm run build:client",
     "watch:server": "cd server && tsc -w --preserveWatchOutput --project tsconfig.json",
     "dev:server": "cd server && tsc && cd ../server-dist && nodemon server -q",
     "build:server": "cd server && tsc",
@@ -20,7 +21,6 @@
     "vuex": "^4.0.0-rc.2"
   },
   "devDependencies": {
-    "@google-cloud/firestore": "^4.7.1",
     "@koa/cors": "^3.1.0",
     "@types/jsonwebtoken": "^8.5.0",
     "@types/koa": "^2.11.6",

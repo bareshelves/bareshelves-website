@@ -1,6 +1,7 @@
 <template lang="pug">
 section.landing
-  h1 Get notified when your favorite products are back in stock. 
+  h1 Get notified when your favorite products are back in stock.
+  h2 No account required.
   .links 
     router-link.button(to="/browse")
       SearchIcon
@@ -29,6 +30,12 @@ section.faq( v-if="FAQ[0]" )
 
 h1 {
   font-size: 2em;
+}
+
+h2 {
+  font-size: 1.5em;
+  color: var(--text);
+  margin-bottom: 2rem;
 }
 
 .links {
