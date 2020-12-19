@@ -8,7 +8,7 @@
     "watch:server": "cd server && tsc -w --preserveWatchOutput --project tsconfig.json",
     "dev:server": "cd server && tsc && cd ../server-dist && nodemon server -q",
     "build:server": "cd server && tsc",
-    "start:server": "cp config.js server-dist/config.js && cp meta.js server-dist/meta.js && cross-env NODE_ENV=production node server-dist/server",
+    "start:server": "cp config.ts server-dist/config.ts && cp meta.ts server-dist/meta.ts && cross-env NODE_ENV=production node server-dist/server",
     "watch:client": "vite serve",
     "build:client": "vite build",
     "lint": "eslint --fix --ext .js,.vue,.ts ./"
