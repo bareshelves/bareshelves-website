@@ -65,4 +65,16 @@ router.get('/search/:page', FilterMiddleware, LimitMiddleware(100), async ctx =>
   ctx.body = products
 })
 
+router.get('/:id', async ctx => {
+  if (!ctx.params.id) return ctx.throw(400, 'Please provide an ID.')
+
+  const product = await Products.findOne({
+    _id: ctx.params.id,
+  })
+
+  if (!product) return ctx.throw(404, 'Product not found.')
+
+  ctx.body = product
+})
+
 export default router.routes()

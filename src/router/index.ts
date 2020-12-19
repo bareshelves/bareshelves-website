@@ -45,9 +45,19 @@ export const routes: RouteRecordRaw[] = [
     name: 'BrowseCategory',
     component: (): Promise<typeof import('*.vue')> => import(/* webpackChunkName: "browse-category" */ '/@/views/BrowseCategory.vue'),
     meta: {
-      title: 'Browse',
+      title: ':category',
     },
   },
+
+  {
+    path: '/product/:id',
+    name: 'Product',
+    component: (): Promise<typeof import('*.vue')> => import(/* webpackChunkName: "product" */ '/@/views/Product.vue'),
+    meta: {
+      title: '...',
+    },
+  },
+
 
   {
     path: '/:pathMatch(.*)*',
@@ -67,7 +77,11 @@ export const router = createRouter({
 })
 
 if (!isSSR) router.beforeEach((to, _, next) => {
-  if (to.meta.title) document.title = `${to.meta.title} - ${meta.title}`
+  /\:(.+)/.test(to.meta.title)
+
+  if (RegExp.$1) to.meta.title = to.meta.title.replace(/\:(.+)/, to.params[RegExp.$1])
+
+  if (to.meta.title) document.title = `${to.meta.title.replace(/^./, to.meta.title[0].toUpperCase())} - ${meta.title}`
 
   next()
 })

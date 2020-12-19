@@ -9,18 +9,24 @@ template( v-if="query" )
   h2.no-results( v-show="searchResult.length === 0" ) No results.
 
 template( v-else )
-  h1 Back in stock
-   a( href="#" ) see more
-  ProductGrid.popular( :list="popular" :rows="2" )
+  template( v-if="inStockProducts.length > 0")
+    h1 Back in stock
+      router-link( to="/browse/in-stock" ) see more
+    ProductGrid.popular( :list="inStockProducts" :rows="2" )
 
   h1 Popular
-   a( href="#" ) see more
-  ProductGrid.popular( :list="popular" :rows="2" )
+    router-link( to="/browse/popular" ) see more
+  ProductGrid.popular( :list="popularProducts" :rows="2" )
 
-  h1 Out of stock
-   a( href="#" ) see more
-  ProductGrid.popular( :list="popular" :rows="2" )
+  template( v-if="outOfStockProducts.length > 0" )
+    h1 Out of stock
+      router-link( to="/browse/out-of-stock" ) see more
+    ProductGrid.popular( :list="outOfStockProducts" :rows="2" )
   
+  template( v-if="allProducts.length > 0" )
+    h1 All
+      router-link( to="/browse/all" ) see more
+    ProductGrid.popular( :list="allProducts" :rows="2" )
 </template>
 
 <style lang="scss" scoped>
@@ -104,7 +110,10 @@ const Search = defineComponent({
     const searchResult = ref<Product[]>([])
     const page = ref(0)
     const limit = ref(100)
-    const popular = ref<Product[]>([])
+    const popularProducts = ref<Product[]>([])
+    const inStockProducts = ref<Product[]>([])
+    const outOfStockProducts = ref<Product[]>([])
+    const allProducts = ref<Product[]>([])
 
     const submit = async () => {
       if (!/\S/.test(query.value)) return
@@ -119,12 +128,24 @@ const Search = defineComponent({
     watch(query, submit)
 
     api.get<Product[]>(`/products/all/0?limit=${limit.value}`)
-      .then(({ data }) => popular.value = data)
+      .then(({ data }) => allProducts.value = data)
+
+    api.get<Product[]>(`/products/all/0?limit=${limit.value}&sort=popular`)
+      .then(({ data }) => popularProducts.value = data)
+
+    api.get<Product[]>(`/products/all/0?limit=${limit.value}&instock=true&sort=newest`)
+      .then(({ data }) => inStockProducts.value = data)
+
+    api.get<Product[]>(`/products/all/0?limit=${limit.value}&instock=false&sort=newest`)
+      .then(({ data }) => outOfStockProducts.value = data)
 
     return {
       query,
       searchResult,
-      popular,
+      popularProducts,
+      inStockProducts,
+      outOfStockProducts,
+      allProducts,
       page,
       limit,
       submit,

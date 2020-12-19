@@ -23,7 +23,7 @@ export const FilterMiddleware: Middleware<KoaState> = async (ctx, next) => {
     instock?: 'true' | 'false'
     maxprice?: string
     minprice?: string
-    sort?: 'popular' | 'name_ascending' | 'name_descending' | 'price_descending' | 'price_ascending'
+    sort?: 'popular' | 'name_ascending' | 'name_descending' | 'price_descending' | 'price_ascending' | 'newest' | 'oldest'
   }
 
   if (instock === 'true') {
@@ -65,6 +65,14 @@ export const FilterMiddleware: Middleware<KoaState> = async (ctx, next) => {
 
     case 'name_ascending':
       sort.productname = 1
+      break
+
+    case 'newest':
+      sort.timestamp = -1
+      break
+
+    case 'oldest':
+      sort.timestamp = 1
       break
   }
 

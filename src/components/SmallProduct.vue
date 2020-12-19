@@ -1,21 +1,26 @@
 <template lang="pug">
-li.product
-  img( :src="productimg" )
-  .details
-    h4 {{ productname }}
+router-link( :to="`/product/${String(id)}`" )
+  li.product
+    img( :src="productimg" )
+    .details
+      h4 {{ productname }}
 
-    .price
-      template( v-if="instock === 'true'" )
-        .badge {{ instock === 'delayed' ? 'Delayed' : 'In Stock' }}
-        p ${{ price }}
+      .price
+        template( v-if="instock === 'true'" )
+          .badge {{ instock === 'delayed' ? 'Delayed' : 'In Stock' }}
+          p ${{ price }}
 
-      template( v-else )
-        .badge.red {{ 'Out Of Stock' }}
+        template( v-else )
+          .badge.red {{ 'Out Of Stock' }}
 
-    AmazonIcon
+      AmazonIcon
 </template>
 
 <style lang="scss" scoped>
+a {
+  text-decoration: none;
+}
+
 .product {
   display: flex;
   height: 10rem;
@@ -50,6 +55,7 @@ li.product
   img {
     height: 10rem;
     width: 10rem;
+    min-width: 10rem;
     object-fit: contain;
     margin-right: 2rem;
   }
@@ -83,9 +89,10 @@ const SmallProduct = defineComponent({
   },
 
   setup (props: {
-    product: Product
+    product: Product,
   }) {
     const {
+      _id,
       productimg,
       productname,
       price,
@@ -95,6 +102,7 @@ const SmallProduct = defineComponent({
     const [dollars, cents] = price ? String(price).split('.') : ['0', '0']
 
     return {
+      id: _id,
       productimg,
       productname,
       price: price ? `${dollars}.${(cents || '00').padEnd(2, '0')}` : null,

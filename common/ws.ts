@@ -23,33 +23,35 @@ export class WebsocketClient {
     }
   }
 
-  connect (url: string): void {
-    const init = () => {
-      if (!this.connection || this.connection.readyState !== 1) {
-        this.connection = new (this.ws as new (url: string, protocols?: string | string[]) => WebSocket || WebSocket)(url)
-      }
+  connect (url: string, fromClose = false): void {
+    if (this.connection && this.connection.readyState === 1) this.connection.close()
 
-      this.connectionAttempts += 1
+    this.connection = new (this.ws as new (url: string, protocols?: string | string[]) => WebSocket || WebSocket)(url)
+
+    this.connectionAttempts += 1
+
+    const closeHandler = () => {
+      console.error('Connection closed. Attempting to reconnect..')
+
+      this.connect(url, true)
     }
 
-    init()
+    const openHandler = () => {
+      this.connectionAttempts = 0
+      this.processQueues()
+    }
 
     const seconds = times[Math.min(Math.floor(this.connectionAttempts / 10), times.length - 1)]
     
-    setTimeout(() => {
-      if (this.connection.readyState !== 1) this.connect(url)
+    if (fromClose) setTimeout(() => {
+      if (this.connection.readyState !== 1) {
+        this.connection.removeEventListener('open', openHandler)
+        this.connect(url)
+      }
     }, 1000 * seconds)
 
-    this.connection.addEventListener('close', () => {
-      console.error('Connection closed. Attempting to reconnect..')
-
-      this.connect(url)
-    })
-
-    this.connection.addEventListener('open', () => {
-      // this.connectionAttempts = 0
-      this.processQueues()
-    })
+    if (!fromClose) this.connection.addEventListener('close', closeHandler)
+    this.connection.addEventListener('open', openHandler)
   }
 
   processQueues (): void {
@@ -112,8 +114,8 @@ export class WebsocketClient {
     callback: (message?: WebsocketMessage) => void,
     options: MessageEventOptions = {},
   ): () => void {
-    const removeEvent = this.queueEvent('message', (messageEvent?: MessageEvent) => {
-      const parsedMessage = JSON.parse(messageEvent.data as string)
+    const removeEvent = this.queueEvent('message', (messageEvent?: Event) => {
+      const parsedMessage = JSON.parse((messageEvent as unknown as { data: string }).data)
 
       callback(parsedMessage as WebsocketMessage)
 

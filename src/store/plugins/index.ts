@@ -1,16 +1,15 @@
 import {
   Plugin, 
 } from 'vuex'
-// import {
-//   AuthPlugin, 
-//   auth, 
-// } from './auth'
+import {
+  NotificationsPlugin, 
+  notifications, 
+} from './notifications'
 
 export interface state {
-  // auth: auth
-  a: ''
+  notifications: notifications
 }
 
 export const plugins: Plugin<state>[] = [
-  // AuthPlugin,
+  NotificationsPlugin,
 ]

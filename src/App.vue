@@ -3,6 +3,7 @@
   Navigation
   main
     router-view
+  RequestNotifications
 </template>
 
 <style lang="scss" scoped>
@@ -19,10 +20,12 @@ import {
   defineComponent, 
 } from "vue"
 import Navigation from '/@/components/Navigation.vue'
+import RequestNotifications from '/@/components/RequestNotifications.vue'
 
 const App = defineComponent({
   components: {
     Navigation,
+    RequestNotifications,
   },
 })
 

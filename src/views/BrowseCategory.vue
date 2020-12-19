@@ -38,6 +38,21 @@ const categories = {
     query: '?sort=popular',
     name: 'Popular',
   },
+
+  'in-stock': {
+    query: '?instock=true&sort=newest',
+    name: 'In stock',
+  },
+
+  'out-of-stock': {
+    query: '?instock=false&sort=newest',
+    name: 'Out of stock',
+  },
+
+  'all': {
+    query: '',
+    name: 'All products',
+  },
 }
 
 const BrowseCategory = defineComponent({
