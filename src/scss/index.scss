@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@700&display=swap');
 @import './theme.scss';
+@import './background.scss';
 
 * {
   margin: 0;
@@ -39,22 +40,23 @@ p {
   max-width: 60em;
 }
 
-button, .button, .rounded, .badge {
+.rounded, .badge {
   border-radius: 5px;
 }
 
 button, .button {
   border: none;
-  padding: 0.5rem;
+  padding: 0.8rem;
   cursor: pointer;
   text-transform: lowercase;
   display: flex;
   align-items: center;
   text-decoration: none;
   font-size: 1.2em;
-  border: 2px solid var(--highlight);
-  background-color: transparent;
-  color: var(--highlight);
+  // border: 1px solid var(--highlight);
+  background-color: var(--highlight);
+  color: var(--highlight-text);
+  transition: border-color 0.1s, background-color 0.1s, color 0.1s;
 
   svg {
     margin-right: 0.2rem;
@@ -62,7 +64,8 @@ button, .button {
   }
 
   &:hover {
-    background-color: var(--highlight);
+    border-color: var(--text);
+    background-color: rgb(130, 125, 140);
     color: var(--highlight-text);
   }
 }
@@ -85,4 +88,10 @@ a {
   &:hover {
     color: var(--text);
   }
+}
+
+.box {
+  background-color: var(--background);
+  // border: 2px solid var(--alt-background);
+  padding: 2rem;
 }

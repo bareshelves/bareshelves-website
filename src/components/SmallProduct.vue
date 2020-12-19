@@ -40,6 +40,10 @@ a {
     overflow: hidden;
   }
 
+  &:hover h4 {
+    color: var(--text);
+  }
+
   .price {
     display: flex;
     align-items: center;
@@ -49,6 +53,7 @@ a {
     p {
       font-size: 1.1rem;
       margin-left: 7px;
+      color: var(--text);
     }
   }
   

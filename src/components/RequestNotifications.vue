@@ -1,6 +1,6 @@
 <template lang="pug">
 .notifications( v-if="!granted" )
-  .wrapper
+  .box
     h3 {{ message }}
     button( v-if="granted === null" @click="request" )
       BellIcon 
@@ -13,13 +13,13 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  border-top: 1px solid var(--text);
+  // border-top: 1px solid var(--text);
   background-color: white;
+  box-shadow: 0 -2rem 3rem 1rem rgba(black, 0.05);
 
-  .wrapper {
+  .box {
     display: flex;
     align-items: center;
-    padding: 0.8rem;
     width: 100%;
     max-width: 1600px;
     margin: 0 auto;
@@ -27,15 +27,18 @@
   }
 
   h3 {
-    max-width: 60%
+    max-width: 60%;
   }
 
   button {
     margin-left: auto;
-    font-size: 1.1em;
+    font-size: 1rem;
+    padding-bottom: 1rem;
 
     svg {
       width: 1.5rem;
+      transform: translateY(0.1rem);
+      margin-right: 0.3rem;
     }
   }
 }

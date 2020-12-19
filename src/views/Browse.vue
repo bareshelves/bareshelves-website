@@ -1,49 +1,50 @@
 <template lang="pug">
-.search.rounded( @click="() => $refs.input.focus()" )
+.search.rounded.box( @click="() => $refs.input.focus()" )
   SearchIcon
-  input( ref="input" v-model="query" placeholder="enter search query.." )
+  input( ref="input" v-model="query" placeholder="toilet paper, hand sanitizer, soap.." )
 
 template( v-if="query" )
-  ProductGrid.search-result( v-show="searchResult.length > 0" :list="searchResult" )
+  ProductGrid.box.products.search-result( v-show="searchResult.length > 0" :list="searchResult" )
 
   h2.no-results( v-show="searchResult.length === 0" ) No results.
 
-template( v-else )
-  template( v-if="inStockProducts.length > 0")
+.categories( v-else )
+  .products.box.rounded( v-if="inStockProducts.length > 0")
     h1 Back in stock
       router-link( to="/browse/in-stock" ) see more
-    ProductGrid.popular( :list="inStockProducts" :rows="2" )
+    ProductGrid.in-stock( :list="inStockProducts" :rows="2" )
+  
+  .products.box.rounded
+    h1 Popular
+      router-link( to="/browse/popular" ) see more
+    ProductGrid.popular( :list="popularProducts" :rows="2" )
 
-  h1 Popular
-    router-link( to="/browse/popular" ) see more
-  ProductGrid.popular( :list="popularProducts" :rows="2" )
-
-  template( v-if="outOfStockProducts.length > 0" )
+  .products.box.rounded( v-if="outOfStockProducts.length > 0" )
     h1 Out of stock
       router-link( to="/browse/out-of-stock" ) see more
-    ProductGrid.popular( :list="outOfStockProducts" :rows="2" )
+    ProductGrid.out-of-stock( :list="outOfStockProducts" :rows="2" )
   
-  template( v-if="allProducts.length > 0" )
+  .products.box.rounded( v-if="allProducts.length > 0" )
     h1 All
       router-link( to="/browse/all" ) see more
-    ProductGrid.popular( :list="allProducts" :rows="2" )
+    ProductGrid.all-products( :list="allProducts" :rows="2" )
 </template>
 
 <style lang="scss" scoped>
 .search {
   width: 100%;
   // border-bottom: 1px solid var(--highlight);
-  background-color: var(--alt-background);
+  background-color: var(--background);
   display: flex;
   align-items: center;
-  padding: 7.5px;
-  margin-top: 8rem;
+  padding: 1.5rem;
+  margin-top: 4rem;
   color: var(--text);
   cursor: text;
 
   svg {
     width: 2rem;
-    margin-right: 4px;
+    margin-right: 1rem;
   }
 
   input {
@@ -67,8 +68,11 @@ h2.no-results {
   margin-top: 4rem;
 }
 
+.products {
+  margin-top: 3rem;
+}
+
 h1 {
-  margin-top: 6rem;
   margin-bottom: 4rem;
   font-size: 1.8rem;
   display: flex;

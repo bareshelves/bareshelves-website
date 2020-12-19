@@ -1,19 +1,29 @@
 <template lang="pug">
-h1 {{ category.name }}
-ProductGrid( :list="products" )
+.category
+  h1.box {{ category.name }}
+  ProductGrid.box.products( :list="products" )
 </template>
 
 <style lang="scss" scoped>
-h1 {
-  margin-top: 8rem;
-  margin-bottom: 6rem;
-  font-size: 2.4rem;
+.category {
   display: flex;
-  width: 100%;
-  max-width: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+h1 {
+  margin-bottom: 4rem;
+  font-size: 2.2rem;
+  display: flex;
   align-items: center;
   display: flex;
   justify-content: center;
+  margin-top: 4rem;
+}
+
+.products {
+  width: 100%;
 }
 </style>
 

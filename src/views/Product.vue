@@ -1,5 +1,5 @@
 <template lang="pug">
-.product( v-if="product !== null" )
+.product.box( v-if="product !== null" )
   img( :src="product.productimg" )
   .details
     h2 {{ product.productname }}
@@ -25,7 +25,7 @@ a {
 .product {
   display: flex;
   width: 100%;
-  margin-top: 8rem;
+  margin-top: 4rem;
 
   .details {
     display: flex;
