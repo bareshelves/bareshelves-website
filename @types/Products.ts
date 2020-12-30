@@ -15,3 +15,8 @@ export interface Product {
   subscription: number
   timestamp: Date
 }
+
+export interface ProductUpdate {
+  product: Product
+  updatedFields: Product
+}

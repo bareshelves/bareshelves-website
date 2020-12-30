@@ -32,10 +32,10 @@ export interface WebsocketEvent {
   }): void
 }
 
-export type WebsocketSubscription = {
+export type WebsocketSubscription <T extends WebsocketMessage> = {
   subscriptions: {
     peer: WebsocketPeer
-    payload: WebsocketMessage
+    payload: T
   }[]
 
   regex: RegExp

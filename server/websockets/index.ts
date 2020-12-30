@@ -21,7 +21,7 @@ export const broadcast = (event: string, message: WebsocketMessage): void => {
   }
 }
 
-export const broadcastTo = (peers: WebsocketPeer[], event: string, message?: WebsocketMessage): void => {
+export const broadcastTo = <T extends WebsocketMessage> (peers: WebsocketPeer[], event: string, message?: T): void => {
   for (const peer of peers) {
     peer.sendEvent(event, message)
   }

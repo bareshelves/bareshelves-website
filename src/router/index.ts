@@ -58,7 +58,6 @@ export const routes: RouteRecordRaw[] = [
     },
   },
 
-
   {
     path: '/:pathMatch(.*)*',
     name: '404',

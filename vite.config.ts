@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 import path from 'path'
 import svgPlugin from './plugins/svg'
+import swPlugin from './plugins/sw'
 import {
   ServerPluginContext,
   UserConfig,
@@ -12,6 +13,7 @@ dotenv.config()
 const config: UserConfig = {
   plugins: [
     svgPlugin,
+    swPlugin,
 
     {
       configureServer: ({

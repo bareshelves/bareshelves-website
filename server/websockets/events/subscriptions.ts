@@ -7,20 +7,23 @@ import {
   WebsocketEvent, 
   WebsocketSubscription,
 } from '../../utils'
+import {
+  WebsocketMessage, 
+} from '../../../@types'
 
 export const subscribe: WebsocketEvent = {
   regex: /^subscribe$/,
   
   callback ({ peer, message }): void {
     let name = message as string
-    let payload: unknown | undefined
+    let payload: WebsocketMessage | undefined
     
     if (typeof message !== 'string') {
-      name = message['type']
+      name = message['name']
       payload = message['payload']
     }
 
-    const subscription: WebsocketSubscription = subscriptions.find(
+    const subscription: WebsocketSubscription<WebsocketMessage> = subscriptions.find(
       ({ regex }) => {
         return regex.test(name)
       },
@@ -34,7 +37,7 @@ export const subscribe: WebsocketEvent = {
 
       subscription.onSubscribe?.(peer, payload)
 
-      console.log(wsLogTag, `Subscribed peer to ${message}.`)
+      console.log(wsLogTag, `Subscribed peer to ${name}.`)
 
       peer.onClose(() => {
         const index = subscription.subscriptions.indexOf({
@@ -60,22 +63,24 @@ export const unsubscribe: WebsocketEvent = {
   callback ({ peer, message }): void {
     if (typeof message !== 'string') return
 
-    const subscription: WebsocketSubscription = subscriptions.find(
+    const subscription: WebsocketSubscription<WebsocketMessage> = subscriptions.find(
       ({ regex }) => {
         return regex.test(message as string)
       },
     )
 
+    // TODO: fix unsubscribe
+
     if (subscription) {
-      const index = subscription.peers.indexOf(peer)
+      // const index = subscription.subscriptions.findIndex(subscription => peer)
 
-      if (index > -1) {
-        subscription.peers.splice(index, 1)
+      // if (index > -1) {
+      //   subscription.peers.splice(index, 1)
 
-        subscription.onUnsubscribe?.(peer)
+      //   subscription.onUnsubscribe?.(peer)
 
-        console.log(wsLogTag, `Unsubscribed peer from ${message}.`)
-      }
+      //   console.log(wsLogTag, `Unsubscribed peer from ${message}.`)
+      // }
     }
   },
 }
