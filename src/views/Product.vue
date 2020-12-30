@@ -4,11 +4,6 @@
   .details
     h2 {{ product.productname }}
 
-    .about
-      h3 About this product
-      ul
-        li( v-for="item in product.desc" ) {{ item }}
-
     .price
       template( v-if="product.instock === 'true'" )
         .badge {{ product.instock === 'delayed' ? 'Delayed' : 'In Stock' }}
@@ -17,12 +12,21 @@
       template( v-else )
         .badge.red {{ 'Out Of Stock' }}
 
-    AmazonIcon
+    a( :href="`https://www.amazon.com/gp/product/${product._id}`" )
+      AmazonIcon
+
+    .about
+      h3 About this product
+      ul
+        li( v-for="item in product.desc" ) {{ item }}
+
+    a.button( :href="`https://www.amazon.com/gp/product/${product._id}`" ) View product on Amazon
+    button.follow( @click="follow" ) follow
 </template>
 
 <style lang="scss" scoped>
-a {
-  text-decoration: none;
+.follow {
+  margin-top: 1rem;
 }
 
 ul {
@@ -39,6 +43,7 @@ ul {
 
   li {
     font-size: 1.2rem;
+    max-width: 60rem;
 
     &:not(:last-child) {
       margin-bottom: 5px;
@@ -94,6 +99,20 @@ ul {
   svg {
     height: 20px;
     margin-top: 10px;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  @media (max-width: 1200px) {
+    flex-direction: column;
+    align-items: center;
+
+    img {
+      margin-right: 0rem;
+      margin-bottom: 2rem;
+    }
   }
 }
 </style>
@@ -124,6 +143,10 @@ const ProductPage = defineComponent({
 
     const id = String(route.params.id)
 
+    const follow = () => {
+
+    }
+
     api.get<Product>(`/products/${id}`)
       .then(({ data }) => {
         product.value = data
@@ -132,6 +155,7 @@ const ProductPage = defineComponent({
 
     return {
       product,
+      follow,
     }
   },
 })

@@ -1,18 +1,21 @@
 <template lang="pug">
-router-link( :to="`/product/${String(id)}`" )
-  li.product
+li.product
+  router-link( :to="`/product/${String(id)}`" )
     img( :src="productimg" )
-    .details
+    
+  .details
+    router-link( :to="`/product/${String(id)}`" )
       h4 {{ productname }}
 
-      .price
-        template( v-if="instock === 'true'" )
-          .badge {{ instock === 'delayed' ? 'Delayed' : 'In Stock' }}
-          p ${{ price }}
+    .price
+      template( v-if="instock === 'true'" )
+        .badge {{ instock === 'delayed' ? 'Delayed' : 'In Stock' }}
+        p ${{ price }}
 
-        template( v-else )
-          .badge.red {{ 'Out Of Stock' }}
+      template( v-else )
+        .badge.red {{ 'Out Of Stock' }}
 
+    a( :href="`https://www.amazon.com/gp/product/${product._id}`" )
       AmazonIcon
 </template>
 
@@ -38,10 +41,11 @@ a {
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;  
     overflow: hidden;
-  }
+    transition: color 0.1s;
 
-  &:hover h4 {
-    color: var(--text);
+    &:hover {
+      color: var(--text);
+    }
   }
 
   .price {
@@ -68,6 +72,11 @@ a {
   svg {
     height: 20px;
     margin-top: 10px;
+    transition: transform 0.1s;
+
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 }
 </style>
