@@ -4,7 +4,10 @@
   .details
     h2 {{ product.productname }}
 
-    p.desc {{ product.desc }}
+    .about
+      h3 About this product
+      ul
+        li( v-for="item in product.desc" ) {{ item }}
 
     .price
       template( v-if="product.instock === 'true'" )
@@ -20,6 +23,27 @@
 <style lang="scss" scoped>
 a {
   text-decoration: none;
+}
+
+ul {
+  list-style: inside;
+}
+
+.about {
+  margin: 2rem 0;
+
+  h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+
+  li {
+    font-size: 1.2rem;
+
+    &:not(:last-child) {
+      margin-bottom: 5px;
+    }
+  }
 }
 
 .product {
