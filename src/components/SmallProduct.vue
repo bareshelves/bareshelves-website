@@ -8,12 +8,16 @@ li.product
       h4 {{ productname }}
 
     .price
-      template( v-if="instock === 'true'" )
-        .badge {{ instock === 'delayed' ? 'Delayed' : 'In Stock' }}
-        p ${{ price }}
+      template( v-if="product.instock === 'true'" )
+        .badge In Stock
+        p ${{ product.price }}
 
-      template( v-else )
-        .badge.red {{ 'Out Of Stock' }}
+      template( v-if="product.instock === 'delayed'" )
+        .badge.orange Delayed
+        p ${{ product.price }}
+
+      template( v-if="product.instock === 'false'" )
+        .badge.red Out Of Stock
 
     a( :href="`https://www.amazon.com/gp/product/${product._id}`" )
       AmazonIcon
