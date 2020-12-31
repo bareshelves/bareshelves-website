@@ -12,7 +12,7 @@ import {
   broadcastTo,
 } from '../'
 
-const Products = db.collection<Product>('products')
+const Products = db.collection<Product>('collection')
 
 export const stock: WebsocketSubscription<ProductSubscription> = {
   regex: /products/,
@@ -20,18 +20,22 @@ export const stock: WebsocketSubscription<ProductSubscription> = {
 }
 
 Products.watch().on('change', async (event) => {
-  const id = event._id as unknown as string
-
-  console.log(id, typeof id)
-
   if (event.operationType === 'update') {
+    const id = event.documentKey._id as unknown as string
+
+    const updatedFields: Product = convertNestedProps(event.updateDescription.updatedFields)
+
+    const keys = Object.keys(updatedFields)
+    
+    if (!keys.includes('instock')) return
+
     const peers = stock.subscriptions.filter(({ payload }) => payload.includes(id)).map(({ peer }) => peer)
 
     const product = await Products.findOne({ _id: id })
 
     broadcastTo<ProductUpdate>(peers, 'product-update', {
       product,
-      updatedFields: convertNestedProps(event.updateDescription.updatedFields),
+      updatedFields,
     })
   } else if (event.operationType === 'insert') {
     // const peers = stock.subscriptions.filter(({ payload }) => payload.includes(id)).map(({ peer }) => peer)

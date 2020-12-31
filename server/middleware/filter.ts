@@ -68,11 +68,11 @@ export const FilterMiddleware: Middleware<KoaState> = async (ctx, next) => {
       break
 
     case 'newest':
-      sort.timestamp = -1
+      sort.lastUpdate = -1
       break
 
     case 'oldest':
-      sort.timestamp = 1
+      sort.lastUpdate = 1
       break
   }
 

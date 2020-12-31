@@ -6,14 +6,16 @@ export type ProductSubscription = string[]
 
 export interface Product {
   _id?: ObjectId | string
-  desc: string
+  desc: string[]
   instock: "false" | "true" | "delayed"
   stock_message: string
   price: number
   productimg: string
   productname: string
   subscription: number
-  timestamp: Date
+  lastUpdate: Date
+  link: string
+  // timestamp: Date // commented out so we don't accidentally use this
 }
 
 export interface ProductUpdate {
