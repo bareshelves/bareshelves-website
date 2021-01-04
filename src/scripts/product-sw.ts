@@ -183,7 +183,7 @@ const init = async (): void => {
 
   const env = '{{ ENV }}'
 
-  const ws = new WebsocketClient(env as unknown as string === 'development' ? `ws://localhost:9898/ws` : context.location.origin + '/ws'
+  const ws = new WebsocketClient(env as unknown as string === 'development' ? `ws://localhost:9898/ws` : context.location.origin + '/ws')
   
   ws.onOpen(() => {
     console.log('Service worker WebSocket client open.')
