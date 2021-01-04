@@ -120,11 +120,11 @@ a.external-icon > svg {
   }
   
   img {
-    height: 35rem;
     width: 35rem;
     min-width: 10rem;
     object-fit: contain;
     margin-right: 2rem;
+    max-width: 100%;
   }
 
   @media (max-width: 1200px) {
