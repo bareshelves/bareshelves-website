@@ -210,14 +210,12 @@ const init = async (): void => {
   }, {
     persistent: true,
   })
-  
-  ws.onEvent<ProductUpdate>('product-update', (update) => {
+
+  const showNotification = (update: ProductUpdate) => {
     const {
       product,
-      updatedFields,
+      // updatedFields,
     } = update
-
-    console.log(product, updatedFields)
 
     if (product.instock === 'false') return
 
@@ -244,7 +242,35 @@ const init = async (): void => {
         context.clients.openWindow(`/products/${product._id}`)
       })
     }
+  }
+
+  const setLastUpdated = (): Promise<void> => localforage.setItem('last-updated', JSON.stringify(Date.now()))
+
+  const getLastUpdated = async (): Promise<number | undefined> => {
+    const string = await localforage.getItem('last-updated')
+
+    if (!string) return 0
+
+    else return JSON.parse(string)
+  }
+  
+  ws.onEvent<ProductUpdate>('product-update', (update) => {
+    showNotification(update)
+
+    setLastUpdated()
+  })
+  
+  ws.onEvent<ProductUpdate[]>('product-updates', async (updates) => {
+    const lastUpdated = await getLastUpdated()
+
+    updates.forEach(update => {
+      console.log(new Date(update.product.lastUpdate).getTime(), lastUpdated, update.product._id)
+
+      if (new Date(update.product.lastUpdate).getTime() > lastUpdated) showNotification(update)
+    })
+
+    setLastUpdated()
   })
 }
 
-if (context.location.pathname.includes('product-sw')) init().catch(console.error)
+if (context.registration) init().catch(console.error)

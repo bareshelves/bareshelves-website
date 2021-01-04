@@ -17,7 +17,16 @@ const Products = db.collection<Product>('collection')
 export const stock: WebsocketSubscription<ProductSubscription> = {
   regex: /products/,
   subscriptions: [],
+
+  onSubscribe (peer, payload: string[]) {
+    const filteredUpdates = updates.filter(update => payload.includes(update.product._id as string))
+
+    peer.sendEvent<ProductUpdate[]>('product-updates', filteredUpdates)
+  },
 }
+
+// TODO: make persistent
+const updates: ProductUpdate[] = []
 
 Products.watch().on('change', async (event) => {
   if (event.operationType === 'update') {
@@ -37,6 +46,24 @@ Products.watch().on('change', async (event) => {
       product,
       updatedFields,
     })
+
+    if (product.instock !== 'false') {
+      // TODO: fix non utc timestamp
+      product.lastUpdate = Date.now() as unknown as Date
+
+      updates.push({
+        product,
+        updatedFields,
+      })
+
+      console.log('Update pushed from ' + product._id)
+    } else {
+      const index = updates.findIndex(update => update.product._id === id)
+
+      if (index) {
+        updates.splice(index, 1)
+      }
+    }
   } else if (event.operationType === 'insert') {
     // const peers = stock.subscriptions.filter(({ payload }) => payload.includes(id)).map(({ peer }) => peer)
 
