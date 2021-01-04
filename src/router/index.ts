@@ -25,7 +25,7 @@ export const routes: RouteRecordRaw[] = [
   {
     path: '/notifications',
     name: 'Notifications',
-    component: (): Promise<typeof import('*.vue')> => import(/* webpackChunkName: "notifications" */ '/@/views/Home.vue'),
+    component: (): Promise<typeof import('*.vue')> => import(/* webpackChunkName: "notifications" */ '/@/views/Notifications.vue'),
     meta: {
       title: 'Notifications',
     },

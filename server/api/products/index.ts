@@ -77,4 +77,25 @@ router.get('/:id', async ctx => {
   ctx.body = product
 })
 
+router.post('/:page', FilterMiddleware, LimitMiddleware(100), async ctx => {
+  const page = Number(ctx.params.page)
+  const limit = ctx.state.limit || 100
+  const productPayload: string[] = ctx.request.body.products
+
+  if (isNaN(page)) return ctx.throw(400, 'Invalid page number.')
+
+  const productsCursor = Products.find({
+    ...ctx.state.filter,
+    _id: {
+      $in: productPayload,
+    },
+  }, { limit }).sort(ctx.state.sort)
+
+  productsCursor.skip(limit * page)
+
+  const products = await productsCursor.toArray()
+
+  ctx.body = products
+})
+
 export default router.routes()
