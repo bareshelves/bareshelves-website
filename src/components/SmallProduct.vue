@@ -19,7 +19,7 @@ li.product
       template( v-if="product.instock.toLowerCase() === 'false'" )
         .badge.red Out Of Stock
 
-    a( :href="`https://www.amazon.com/gp/product/${product._id}`" )
+    a( :href="product.link" )
       AmazonIcon
 </template>
 

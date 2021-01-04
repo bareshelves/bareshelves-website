@@ -1,21 +1,22 @@
 import {
+  createLogger,
   createStore,
   Store,
 } from 'vuex'
-
 import {
   plugins,
-  // state, 
+  state as pluginState,
 } from './plugins'
-// export { state } from './plugins'
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface state extends pluginState {}
 
 const store = createStore({
-  plugins,
+  plugins: [
+    ...plugins,
+    createLogger(),
+  ],
 }) as Store<null>
-
-// store.subscribe((mutation, state) => {
-//   console.log('MUTATION', mutation.type, mutation.payload, '\n\nSTATE', JSON.parse(JSON.stringify(state)))
-// })
 
 window['store'] = store
 

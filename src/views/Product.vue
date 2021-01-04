@@ -16,7 +16,7 @@
       template( v-if="product.instock.toLowerCase() === 'false'" )
         .badge.red Out Of Stock
 
-    a( :href="`https://www.amazon.com/gp/product/${product._id}`" )
+    a.external-icon( :href="product.link" )
       AmazonIcon
 
     .about
@@ -24,13 +24,25 @@
       ul
         li( v-for="item in product.desc" ) {{ item }}
 
-    a.button( :href="`https://www.amazon.com/gp/product/${product._id}`" ) View product on Amazon
-    button.follow( @click="follow" ) follow
+    div.controls
+      button.follow( v-if="!following" @click="follow" )
+        StarIcon
+        | follow
+      button.follow( v-else @click="unfollow" )
+        XIcon
+        | unfollow
+      a.button( :href="product.link" )
+        ExternalLinkIcon
+        | View product on Amazon
 </template>
 
 <style lang="scss" scoped>
+.controls {
+  display: flex;
+}
+
 .follow {
-  margin-top: 1rem;
+  margin-right: 1rem;
 }
 
 ul {
@@ -52,6 +64,21 @@ ul {
     &:not(:last-child) {
       margin-bottom: 5px;
     }
+  }
+}
+
+button svg, .button svg {
+  width: 1.4rem;
+  margin-right: 0.4rem;
+}
+
+a.external-icon > svg {
+  height: 20px;
+  margin-top: 10px;
+  transition: transform 0.1s;
+
+  &:hover {
+    transform: scale(1.05);
   }
 }
 
@@ -100,15 +127,6 @@ ul {
     margin-right: 2rem;
   }
 
-  svg {
-    height: 20px;
-    margin-top: 10px;
-
-    &:hover {
-      transform: scale(1.05);
-    }
-  }
-
   @media (max-width: 1200px) {
     flex-direction: column;
     align-items: center;
@@ -123,6 +141,7 @@ ul {
 
 <script lang="ts">
 import {
+  computed,
   defineComponent, ref, 
 } from "vue"
 import {
@@ -135,20 +154,41 @@ import {
   api, 
 } from "../utils"
 import AmazonIcon from '../assets/svg/amazon.svg'
+import StarIcon from '../assets/svg/star.svg'
+import ExternalLinkIcon from '../assets/svg/external-link.svg'
+import XIcon from '../assets/svg/x.svg'
+import {
+  useStore, 
+} from "vuex"
+import {
+  state, 
+} from "/@/store"
 
 const ProductPage = defineComponent({
   components: {
     AmazonIcon,
+    StarIcon,
+    ExternalLinkIcon,
+    XIcon,
   },
 
   setup () {
     const product = ref<Product>(null)
     const route = useRoute()
+    const store = useStore<state>()
+
+    const products = computed(() => store.state.subscriptions.products)
 
     const id = String(route.params.id)
 
-    const follow = () => {
+    const following = computed(() => products.value.includes(id))
 
+    const follow = () => {
+      store.commit('insertProduct', id)
+    }
+
+    const unfollow = () => {
+      store.commit('removeProduct', id)
     }
 
     api.get<Product>(`/products/${id}`)
@@ -160,6 +200,8 @@ const ProductPage = defineComponent({
     return {
       product,
       follow,
+      unfollow,
+      following,
     }
   },
 })

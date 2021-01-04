@@ -28,7 +28,7 @@ const App = defineComponent({
   },
 
   setup () {
-    import('./scripts/product-sw').then(() => {
+    import('./scripts/product-sw').then(({ default: ProductWorker }) => {
       const path = process.env.NODE_ENV === 'development' ? '/@/scripts/product-sw.ts' : '/_assets/product-sw.js'
 
       navigator.serviceWorker.getRegistrations().then(registrations => {
@@ -39,6 +39,10 @@ const App = defineComponent({
           error => console.log('Service worker registration failed:', error),
         )
       })
+
+      // console.log(ProductWorker)
+
+      // const worker: Worker = ProductWorker()
     })
   },
 })

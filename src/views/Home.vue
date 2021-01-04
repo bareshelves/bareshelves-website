@@ -1,8 +1,8 @@
 <template lang="pug">
 .home
   section.landing
-    h1.box Get notified when your favorite products are back in stock.
-    h2.box No account required.
+    h1 Get notified when your favorite products are back in stock.
+    h2 No account required.
     .links
       router-link.button(to="/browse")
         SearchIcon
@@ -45,6 +45,7 @@ h1 {
 h2 {
   font-size: 1.5em;
   color: var(--text);
+  margin-top: 1rem;
 }
 
 .links {

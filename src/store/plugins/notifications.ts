@@ -23,8 +23,6 @@ export const NotificationsPlugin: Plugin<state> = (store) => {
     mutations: {
       updateGrantedState (state) {
         state.granted = getNotificationGranted()
-
-        console.log('Notification state:', state.granted)
       },
     },
   })
