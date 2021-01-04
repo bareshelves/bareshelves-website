@@ -12,22 +12,22 @@ template( v-if="query" )
   .products.box.rounded( v-if="inStockProducts.length > 0")
     h1 Back in stock
       router-link( to="/browse/in-stock" ) see more
-    ProductGrid.in-stock( :list="inStockProducts" :rows="2" )
+    ProductGrid.in-stock( :list="inStockProducts" )
   
   .products.box.rounded
     h1 Popular
       router-link( to="/browse/popular" ) see more
-    ProductGrid.popular( :list="popularProducts" :rows="2" )
+    ProductGrid.popular( :list="popularProducts" )
 
   .products.box.rounded( v-if="outOfStockProducts.length > 0" )
     h1 Out of stock
       router-link( to="/browse/out-of-stock" ) see more
-    ProductGrid.out-of-stock( :list="outOfStockProducts" :rows="2" )
+    ProductGrid.out-of-stock( :list="outOfStockProducts" )
   
   .products.box.rounded( v-if="allProducts.length > 0" )
     h1 All
       router-link( to="/browse/all" ) see more
-    ProductGrid.all-products( :list="allProducts" :rows="2" )
+    ProductGrid.all-products( :list="allProducts" )
 </template>
 
 <style lang="scss" scoped>
@@ -70,6 +70,19 @@ h2.no-results {
 
 .products {
   margin-top: 3rem;
+
+  > ul {
+    max-height: 25rem;
+    overflow-y: hidden !important;
+
+    @media (max-width: 1200px) {
+      max-height: 40rem;
+    }
+
+    @media (max-width: 820px) {
+      max-height: 70rem;
+    }
+  }
 }
 
 h1 {
