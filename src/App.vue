@@ -18,6 +18,9 @@
 import {
   defineComponent, 
 } from "vue"
+import {
+  refreshServiceWorker, 
+} from "./utils"
 import Navigation from '/@/components/Navigation.vue'
 import RequestNotifications from '/@/components/RequestNotifications.vue'
 
@@ -28,22 +31,7 @@ const App = defineComponent({
   },
 
   setup () {
-    import('./scripts/product-sw').then(({ default: ProductWorker }) => {
-      const path = process.env.NODE_ENV === 'development' ? '/@/scripts/product-sw.ts' : '/_assets/product-sw.js'
-
-      navigator.serviceWorker.getRegistrations().then(registrations => {
-        registrations.forEach(r => r.unregister())
-
-        navigator.serviceWorker.register(path).then(
-          registration => console.log('Service worker registration succeeded:', registration), 
-          error => console.log('Service worker registration failed:', error),
-        )
-      })
-
-      // console.log(ProductWorker)
-
-      // const worker: Worker = ProductWorker()
-    })
+    import('./scripts/product-sw').then(() => refreshServiceWorker())
   },
 })
 

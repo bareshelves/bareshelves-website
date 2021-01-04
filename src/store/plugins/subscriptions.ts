@@ -5,6 +5,9 @@ import {
   state, 
 } from './'
 import localforage from 'localforage'
+import {
+  refreshServiceWorker, 
+} from '/@/utils'
 
 export interface subscriptions {
   products: string[]
@@ -52,6 +55,7 @@ export const SubscriptionsPlugin: Plugin<state> = (store) => {
       async saveProducts (store) {
         try {
           await localforage.setItem('products', JSON.stringify(store.state.products))
+          refreshServiceWorker()
         } catch (error) {
           console.error(error)
         }

@@ -2,3 +2,4 @@
 export * from './timing'
 export * from './api'
 export * from './notifications'
+export * from './sw'

@@ -53,9 +53,9 @@ section.notifications
 
     @media (max-width: 800px) {
       flex-direction: column;
+      align-items: center;
       
       > button {
-        width: 100%;
         margin-top: 1rem;
       }
     }
