@@ -14,7 +14,7 @@ section.notifications
           | unfollow
 
     template( v-else )
-      h2 You aren't subscribed to any products.
+      h2 You aren't following any products.
       router-link.button(to="/browse")
         SearchIcon
         | Search for products

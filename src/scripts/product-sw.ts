@@ -183,7 +183,7 @@ context.addEventListener('notificationclick', event => {
   const product = event.notification.data.product as Product
 
   event.preventDefault()
-  context.clients.openWindow(`/products/${product._id}`)
+  context.clients.openWindow(`/product/${product._id}`)
 })
 
 const init = async (): void => {
@@ -210,6 +210,7 @@ const init = async (): void => {
   }, {
     persistent: true,
   })
+  
   ws.onEvent<ProductUpdate>('product-update', (update) => {
     const {
       product,
