@@ -8,6 +8,9 @@ import localforage from 'localforage'
 import {
   refreshServiceWorker, 
 } from '/@/utils'
+import {
+  api,
+} from '../../utils'
 
 export interface subscriptions {
   products: string[]
@@ -30,6 +33,8 @@ export const SubscriptionsPlugin: Plugin<state> = (store) => {
         state.products.push(payload)
 
         store.dispatch('saveProducts')
+
+        api.post('/products/follow', { id: payload }).catch(r => r)
       },
 
       removeProduct (state, payload: string) {

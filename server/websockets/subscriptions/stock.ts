@@ -48,7 +48,6 @@ Products.watch().on('change', async (event) => {
     })
 
     if (product.instock !== 'false') {
-      // TODO: fix non utc timestamp
       product.lastUpdate = Date.now() as unknown as Date
 
       updates.push({

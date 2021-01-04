@@ -10,7 +10,7 @@
         p ${{ product.price }}
 
       template( v-if="product.instock.toLowerCase() === 'delayed'" )
-        .badge.orange Delayed
+        .badge.orange Preorder
         p ${{ product.price }}
 
       template( v-if="product.instock.toLowerCase() === 'false'" )

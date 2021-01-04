@@ -10,10 +10,13 @@ import {
   LimitMiddleware,
   FilterMiddleware,
 } from '../../middleware'
+import FollowRouter from './follow'
 
 const router = new Router<KoaState>()
 
 const Products = db.collection<Product>('collection')
+
+router.use('/follow', FollowRouter)
 
 Products.createIndex({
   productname: "text",
