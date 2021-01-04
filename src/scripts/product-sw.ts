@@ -174,6 +174,13 @@ class WebsocketClient {
 
 const context = self as unknown as ServiceWorkerGlobalScope
 
+context.addEventListener('notificationclick', event => {
+  const product = event.notification.data.product as Product
+
+  event.preventDefault()
+  context.clients.openWindow(`/products/${product._id}`)
+})
+
 const init = async (): void => {
   const productString: string = await localforage.getItem('products')
 
@@ -198,14 +205,6 @@ const init = async (): void => {
   }, {
     persistent: true,
   })
-
-  context.addEventListener('notificationclick', event => {
-    const product = event.notification.data.product as Product
-
-    event.preventDefault()
-    context.clients.openWindow(`/products/${product._id}`)
-  })
-
   ws.onEvent<ProductUpdate>('product-update', (update) => {
     const {
       product,
