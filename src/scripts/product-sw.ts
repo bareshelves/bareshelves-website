@@ -1,3 +1,8 @@
+// ***
+// ** DON'T LOOK AT ME, IGNORE THIS MONSTROSITY!!
+// ** https://bugs.chromium.org/p/chromium/issues/detail?id=824647
+// ***
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 // eslint-disable-next-line
