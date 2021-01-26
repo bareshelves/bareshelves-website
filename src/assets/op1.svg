@@ -1,0 +1,23 @@
+<svg style="fill:none" version="1.1" viewBox="0 0 1383 1328" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(-668 -834)" style="filter:url(#filter0_d)">
+    <rect x="708" y="874" width="1303" height="1248" style="fill:#fff"/>
+  </g>
+  <path d="m692 40h652v621m-652-621h-652v621m652-621v1248h-652v-627m652 627h652v-627m-1303 0h1303" style="stroke-width:80;stroke:#000"/>
+  <rect x="154" y="336" width="180" height="287" style="fill:#000"/>
+  <rect x="400" y="336" width="180" height="287" style="fill:#000"/>
+  <rect x="850" y="904" width="102" height="351" style="fill:#000"/>
+  <rect transform="rotate(90)" x="1130" y="-496" width="125" height="284" style="fill:#000"/>
+  <rect transform="rotate(90)" x="1e3" y="-586" width="125" height="284" style="fill:#000"/>
+  <rect x="1078" y="904" width="102" height="351" style="fill:#000"/>
+  <defs>
+    <filter id="filter0_d" x="0" y="0" width="2844" height="2844" style="color-interpolation-filters:sRGB" filterUnits="userSpaceOnUse">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+      <feOffset dy="4"/>
+      <feGaussianBlur stdDeviation="2"/>
+      <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+      <feBlend in2="BackgroundImageFix" result="effect1_dropShadow"/>
+      <feBlend in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+    </filter>
+  </defs>
+</svg>

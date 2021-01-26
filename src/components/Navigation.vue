@@ -1,7 +1,7 @@
 <template lang="pug">
 nav
   router-link(to="/")
-    .logo
+    Logo.logo
     h2 bareshelves
   
   router-link(to="/browse")
@@ -16,11 +16,11 @@ nav {
   display: flex;
   align-items: center;
 
-  *:not(:last-child) {
+  > *:not(:last-child) {
     margin-right: 0.75rem;
   }
 
-  *:first-child {
+  > *:first-child {
     display: flex;
     align-items: center;
     margin-right: auto;
@@ -64,11 +64,13 @@ import {
 } from "vue"
 import SearchIcon from '/@/assets/svg/search.svg'
 import BellIcon from '/@/assets/svg/bell.svg'
+import Logo from '/@/assets/op1.svg'
 
 const Navigation = defineComponent({
   components: {
     SearchIcon,
     BellIcon,
+    Logo,
   },
 })
 
