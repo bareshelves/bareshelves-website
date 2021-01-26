@@ -31,7 +31,7 @@ const App = defineComponent({
   },
 
   setup () {
-    import('./scripts/product-sw').then(() => refreshServiceWorker())
+    import('./product-sw').then(() => refreshServiceWorker())
   },
 })
 

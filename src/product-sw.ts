@@ -17,7 +17,7 @@ import {
   ProductUpdate,
   ProductSubscription, 
   Product,
-} from "../../@types"
+} from "../@types"
 
 const times: number[] = [5, 10, 30, 60]
 
@@ -184,6 +184,10 @@ context.addEventListener('notificationclick', event => {
 
   event.preventDefault()
   context.clients.openWindow(`/product/${product._id}`)
+})
+
+self.addEventListener('install', () => {
+  self.skipWaiting()
 })
 
 const init = async (): void => {

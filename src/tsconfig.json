@@ -27,6 +27,6 @@
     "shims.d.ts", 
     "../@types/index", 
     "**/*.vue",
-    "scripts/product-sw.ts"
+    "product-sw.ts"
   ],
 }
