@@ -10,7 +10,7 @@
     "build:server": "cd server && tsc",
     "start:server": "cp config.ts server-dist/config.ts && cp meta.ts server-dist/meta.ts && cross-env NODE_ENV=production node server-dist/server",
     "watch:client": "vite serve",
-    "build:client": "vite build",
+    "build:client": "vite build && mv dist/_assets/product-sw.js dist/product-sw.js",
     "lint": "eslint --fix --ext .js,.vue,.ts ./"
   },
   "dependencies": {
