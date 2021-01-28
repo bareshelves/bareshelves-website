@@ -1,5 +1,5 @@
 export const refreshServiceWorker = (): void => {
-  const path = process.env.NODE_ENV === 'development' ? '/@/product-sw.ts' : '/product-sw.js'
+  const path = process.env.NODE_ENV === 'development' ? '/@/product-sw.ts' : '/_assets/product-sw.js'
 
   navigator.serviceWorker.getRegistrations().then(registrations => {
     registrations.forEach(r => r.unregister())
