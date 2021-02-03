@@ -14,3 +14,5 @@ console.log('Loading regex...')
 export * as regex from '../../common/regex'
 console.log('Loading constraints...')
 export * as constraints from '../../common/constraints'
+console.log('Loading web-push util...')
+export * from './web-push'

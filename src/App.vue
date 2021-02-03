@@ -18,8 +18,10 @@
 import {
   defineComponent, 
 } from "vue"
+import { SubscriptionInterface } from "../@types/Subscription"
 import {
   refreshServiceWorker, 
+  api,
 } from "./utils"
 import Navigation from '/@/components/Navigation.vue'
 import RequestNotifications from '/@/components/RequestNotifications.vue'
@@ -31,7 +33,10 @@ const App = defineComponent({
   },
 
   setup () {
-    import('./product-sw').then(() => refreshServiceWorker())
+    void (async () => {
+      await import('./product-sw')
+      refreshServiceWorker()
+    })().catch(console.error)
   },
 })
 

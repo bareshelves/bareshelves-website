@@ -278,3 +278,7 @@ const init = async (): void => {
 }
 
 if (context.registration) init().catch(console.error)
+
+context.addEventListener('push', event => {
+  console.log(event)
+})

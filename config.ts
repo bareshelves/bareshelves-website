@@ -18,4 +18,12 @@ export const mongodb = {
   database: 'amazon',
 }
 
+export const vapid: {
+  publicKey: string
+  privateKey: string
+} = {
+  publicKey: process.env.VAPID_PUBLIC_KEY,
+  privateKey: process.env.VAPID_PRIVATE_KEY,
+}
+
 export const port = Number(process.env.PORT) || 9898

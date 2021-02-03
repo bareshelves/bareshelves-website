@@ -7,6 +7,7 @@ import {
   KoaState,
 } from '@types'
 import Products from './products'
+import Push from './push'
 
 const router = new Router<KoaState>()
 
@@ -23,5 +24,6 @@ router.use(async (ctx, next) => {
 })
 
 router.use('/products', Products)
+router.use('/push', Push)
 
 export default router.routes()
