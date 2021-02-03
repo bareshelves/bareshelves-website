@@ -2,7 +2,7 @@
   "name": "bareshelves",
   "version": "0.0.0",
   "scripts": {
-    "start": "npm run build:client && npm run build:server && npm run start:server",
+    "start": "npm run start:server",
     "dev": "multiscript npm run watch:client + npm run watch:server + npm run dev:server",
     "build": "npm run build:server && npm run build:client",
     "watch:server": "cd server && tsc -w --preserveWatchOutput --project tsconfig.json",
