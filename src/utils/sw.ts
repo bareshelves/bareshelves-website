@@ -1,6 +1,7 @@
 import {
   SubscriptionInterface, 
 } from "@types"
+import localforage from "localforage"
 import {
   api, 
 } from "./api"
@@ -42,14 +43,15 @@ export const refreshServiceWorker = (): void => {
             applicationServerKey: urlBase64ToUint8Array(vapidPublicKey),
           })
   
-          const body: SubscriptionInterface = {
+          const subscription: SubscriptionInterface = {
             id: localStorage.id,
             subscription: JSON.parse(JSON.stringify((pushSubscription))),
+            products: JSON.parse(await localforage.getItem('products')),
           }
-    
-          await api.post('/push/new-subscription', body)
 
-          console.log('Push subscription succeeded:', body)
+          await api.post('/push/new-subscription', subscription)
+
+          console.log('Push subscription succeeded:', subscription)
         } catch (error) {
           console.error(error)
           console.error('Push subscription failed.')

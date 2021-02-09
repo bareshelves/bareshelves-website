@@ -2,6 +2,7 @@ import {
   WebsocketSubscription,
   db,
   convertNestedProps,
+  sync,
 } from '../../utils'
 import {
   Product,
@@ -29,43 +30,51 @@ export const stock: WebsocketSubscription<ProductSubscription> = {
 const updates: ProductUpdate[] = []
 
 Products.watch().on('change', async (event) => {
-  if (event.operationType === 'update') {
-    const id = event.documentKey._id as unknown as string
-
-    const updatedFields: Product = convertNestedProps(event.updateDescription.updatedFields)
-
-    const keys = Object.keys(updatedFields)
-    
-    if (!keys.includes('instock')) return
-
-    const peers = stock.subscriptions.filter(({ payload }) => payload.includes(id)).map(({ peer }) => peer)
-
-    const product = await Products.findOne({ _id: id })
-
-    broadcastTo<ProductUpdate>(peers, 'product-update', {
-      product,
-      updatedFields,
-    })
-
-    if (product.instock !== 'false') {
-      product.lastUpdate = Date.now() as unknown as Date
-
-      updates.push({
+  try {
+    if (event.operationType === 'update') {
+      const id = event.documentKey._id as unknown as string
+  
+      const updatedFields: Product = convertNestedProps(event.updateDescription.updatedFields)
+  
+      const keys = Object.keys(updatedFields)
+      
+      if (!keys.includes('instock')) return
+  
+      const peers = stock.subscriptions.filter(({ payload }) => payload.includes(id)).map(({ peer }) => peer)
+  
+      const product = await Products.findOne({ _id: id })
+  
+      broadcastTo<ProductUpdate>(peers, 'product-update', {
         product,
         updatedFields,
       })
-
-      console.log('Update pushed from ' + product._id)
-    } else {
-      const index = updates.findIndex(update => update.product._id === id)
-
-      if (index) {
-        updates.splice(index, 1)
+  
+      if (product.instock !== 'false') {
+        product.lastUpdate = Date.now() as unknown as Date
+  
+        const update = {
+          product,
+          updatedFields,
+        }
+  
+        updates.push(update)
+  
+        sync(update)
+  
+        console.log('Update pushed from ' + product._id)
+      } else {
+        const index = updates.findIndex(update => update.product._id === id)
+  
+        if (index) {
+          updates.splice(index, 1)
+        }
       }
+    } else if (event.operationType === 'insert') {
+      // const peers = stock.subscriptions.filter(({ payload }) => payload.includes(id)).map(({ peer }) => peer)
+  
+      // broadcastTo(peers, 'product-update', event.fullDocument)
     }
-  } else if (event.operationType === 'insert') {
-    // const peers = stock.subscriptions.filter(({ payload }) => payload.includes(id)).map(({ peer }) => peer)
-
-    // broadcastTo(peers, 'product-update', event.fullDocument)
+  } catch (error) {
+    console.error(error)
   }
 })

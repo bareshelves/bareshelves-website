@@ -6,6 +6,7 @@ import {
   db,
 } from './db'
 import {
+  ProductUpdate,
   SubscriptionInterface,
 } from '../../@types'
 
@@ -35,29 +36,27 @@ webpush.setVapidDetails(
   vapid.privateKey,
 )
 
-const sync = async (): Promise<void> => {
+export const sync = (update: ProductUpdate): void => {
   console.log('Sync with:', subscriptions.map(({ id }) => id))
 
-  for (const subscription of subscriptions) {
-    try {
-      webpush.sendNotification(subscription.subscription, 'wake')
-    } catch (error) {
-      console.error(error)
-    }
+  const filteredSubscriptions = subscriptions
+    .filter(({ products }) => {
+      try {
+        return products.includes(update.product._id as string)
+      } catch (error) {
+        console.error('Error validating subscription')
+        console.error(error)
 
-    await new Promise(r => setTimeout(r, 100))
-  }
+        return false
+      }
+    })
+
+  filteredSubscriptions
+    .forEach(subscription => {
+      try {
+        webpush.sendNotification(subscription.subscription, JSON.stringify(update))
+      } catch (error) {
+        console.error(error)
+      }
+    })
 }
-
-setInterval(sync, 1000 * 60 * 15)
-
-// This is the same output of calling JSON.stringify on a PushSubscription
-// const pushSubscription = {
-//   endpoint: '.....',
-//   keys: {
-//     auth: '.....',
-//     p256dh: '.....',
-//   },
-// }
- 
-// webpush.sendNotification(pushSubscription, 'Your Push Payload Text')
