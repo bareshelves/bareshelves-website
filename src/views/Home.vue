@@ -3,6 +3,8 @@
   section.landing
     h1 Get notified when your favorite products are back in stock.
     h2 No account required.
+    h3 Made with ♡ by allen
+    h4 @wildwastaken on github
     .links
       router-link.button(to="/browse")
         SearchIcon
@@ -48,6 +50,17 @@ h2 {
   margin-top: 1rem;
 }
 
+h3 {
+  font-size: 1.5em;
+  color: var(--text);
+  margin-top: 1rem;
+}
+
+h4 {
+  font-size: 1.5em;
+  color: var(--text);
+  margin-top: 1rem;
+}
 .links {
   display: flex;
   margin-top: 3rem;
