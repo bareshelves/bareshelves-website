@@ -3,8 +3,8 @@
   section.landing
     h1 Get notified when your favorite products are back in stock.
     h2 No account required.
-    h3 Made with ❤️ by allen
-    <a :href="https://github.com/wildwastaken/"> My GitHub </a>
+    h3 Made with ♡ by allen
+    h4 @wildwastaken on github
     .links
       router-link.button(to="/browse")
         SearchIcon
@@ -14,9 +14,9 @@
         BellIcon
         | Manage notifications
 
-      section.faq( v-if="FAQ[0]" )
-        h1 F.A.Q.
-      FAQItem(v-for="(question, key) in FAQ" :key="key" :question="question")
+  //- section.faq( v-if="FAQ[0]" )
+  //-   //- h1 F.A.Q.
+  //-   FAQItem(v-for="(question, key) in FAQ" :key="key" :question="question")
 </template>
 
 <style lang="scss" scoped>
